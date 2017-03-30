@@ -1,0 +1,7 @@
+build
+doc
+tmp
+coverage
+lib/scaffold
+src/app/utils/Polyfill/lib/*
+src/app/components/Canvas/CanvasUtil/types/PointerEvent.js

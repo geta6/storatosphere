@@ -21,8 +21,11 @@ ul, li
   padding 0
   list-style none
 
+#app
+  height 100%
+
 #App
-  min-height 100%
+  height 100%
 
   &Back
     position fixed
@@ -93,7 +96,7 @@ ul, li
       max-width 1024px
 
   &Menu
-    z-index 15
+    z-index 20
     position fixed
     top 0
     left 50%
@@ -127,26 +130,36 @@ ul, li
         transform translateY(-50%)
 
   &Copy
+    box-sizing border-box
     z-index 10
-    position absolute
-    top 20px
-    left 50%
-    transform translateX(-240px)
-    writing-mode vertical-rl
+    position relative
+    padding-top 20px
     font-family '游明朝', YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', 'メイリオ', Meiryo, serif
     font-weight bold
     font-size 4em
     text-shadow 2px 2px 4px rgba(#0C2953, 0.96)
 
+    &Body
+      margin 0 auto
+      transform translateX(-240px)
+      writing-mode vertical-rl
+
     .copy2
       padding-top 3em
 
   &Main
-    z-index 20
+    z-index 15
+    box-sizing border-box
     position relative
-    margin 0 auto
-    width 100%
-    max-width 1024px
+
+    .AppSection
+      background-color rgba(black, 0.72)
+
+      &Body
+        margin 0 auto
+        padding 20px 0
+        width 100%
+        max-width 768px
 
     .AppSectionSpace
       &:before

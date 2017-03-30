@@ -1,4 +1,5 @@
-import 'react-fastclick';
+// import 'react-fastclick';
+import classNames from 'classnames';
 import skrollr from 'skrollr';
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
@@ -16,7 +17,8 @@ class App extends PureComponent {
   constructor(props, context) {
     super(props, context);
     style._insertCss();
-    // this.state = { route: location.hash.replace('#', '') };
+    this.image = [Logo, Back, Elevator, People, Lattice, Stora, Sphere];
+    this.state = { loaded: false, count: 0 };
   }
 
   componentDidMount = () => {
@@ -24,14 +26,21 @@ class App extends PureComponent {
     this.nodeElevator = this.node.querySelector('#AppBackElevator');
     this.nodePeople = this.node.querySelector('#AppBackPeople');
 
-    window.addEventListener('resize', this.handleResize, false);
-    this.handleResize();
+    setTimeout(async () => {
+      for (const src of this.image) {
+        await new Promise((resolve) => {
+          Object.assign(new Image(), { src, onload: () => this.setState({ count: this.state.count + 1 }, resolve), onerror: () => this.setState({ count: this.state.count + 1 }, resolve) });
+        });
+      }
 
-    setTimeout(() => {
+      window.addEventListener('resize', this.handleResize, false);
+      this.handleResize();
+
       this.nodeElevator.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 60%');
       this.nodePeople.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 100%');
       setTimeout(() => {
         skrollr.init();
+        this.setState({ loaded: true });
       });
     });
   };
@@ -46,6 +55,13 @@ class App extends PureComponent {
 
   render = () => (
     <div id='App' ref={this.handleAssignNode}>
+      <div id='AppLoad' className={classNames({ visible: !this.state.loaded })}>
+        <div id='AppLoadBar'>
+          <div id='AppLoadBarBody' style={{ width: `${(this.state.count / this.image.length) * 100}%` }} />
+          <div className='label'>Loading...</div>
+        </div>
+      </div>
+
       <div id='AppMask' />
       <div id='AppBack' style={{ backgroundImage: `url(${Back})` }}>
         <div id='AppBackElevator' style={{ backgroundImage: `url(${Elevator})` }} data-0='background-position: 50% 40%' />

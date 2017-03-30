@@ -1,5 +1,6 @@
 global-reset()
 
+$base-color = #00101A
 $easing-quick = cubic-bezier(.215, .61, .355, 1)
 $easing-kickback = cubic-bezier(0.175, 0.885, 0.32, 1.275)
 
@@ -13,7 +14,7 @@ html, body
   font-family '游ゴシック', YuGothic, 'ヒラギノゴシック ProN W3', 'Hiragino Gothic ProN', 'メイリオ', Meiryo, sans-serif
   color white
   font-smoothing antialiased
-  background-color black
+  background-color $base-color
   -webkit-tap-highlight-color transparent
 
 ul, li
@@ -49,7 +50,7 @@ ul, li
       bottom 0
       width 0
       height 100%
-      box-shadow 0 0 60px 80px black
+      box-shadow 0 0 60px 80px $base-color
 
     &:after
       z-index 5
@@ -61,7 +62,7 @@ ul, li
       bottom 0
       width 0
       height 100%
-      box-shadow 0 0 60px 80px black
+      box-shadow 0 0 60px 80px $base-color
 
     &Elevator
       z-index 1
@@ -129,7 +130,8 @@ ul, li
       font-family 'Hannari', '游明朝', YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', 'メイリオ', Meiryo, serif
       font-weight medium
       font-size 4em
-      text-shadow 2px 2px 4px #0C2C55
+      color lighten($base-color, 12%)
+      text-shadow 0px 0px 4px white, 0px 0px 4px white
       display flex
 
       &Body
@@ -146,45 +148,76 @@ ul, li
 
     .AppSection
       margin-bottom 100px
-      background-color rgba(black, 0.72)
+      background-color rgba($base-color, 0.84)
 
       &Body
         box-sizing border-box
         margin 0 auto
-        padding 20px
+        padding 20px 0 40px
         width 100%
         max-width 768px
 
+        &Song
+          text-align center
+
+          h3
+            font-size 1.8em
+
       h2
-        margin 0 0 20px
+        margin 40px 0 60px
         padding 0 0 10px
         // font-family '游ゴシック', YuGothic, 'ヒラギノゴシック ProN W3', 'Hiragino Gothic ProN', 'メイリオ', Meiryo, sans-serif
         font-size 3em
-        border-bottom 1px dashed rgba(black, 0.28)
-
-      h3
-        margin 0
-        font-size 2em
+        border-bottom 1px dashed rgba(white, 0.12)
+        text-align center
 
       p
         font-size 1.2em
 
+      .AppSectionCharactor
+        display flex
+        justify-content space-between
+        align-items top
+
       .AppSectionCharactors
+        flex 1
         position relative
         min-height 360px
 
-        p
-          width 70%
+        h3
+          margin 0
+          font-size 1.8em
 
         img
           position absolute
-          right 0
           bottom 0
-          height 360px
+
+        &.left
+          z-index 1
+
+          h3
+            text-align right
+
+          img
+            right -0px
+            height 360px
+
+          .AppSectionCharactorsText
+            margin-right 150px
+
+        &.right
+          z-index 0
+
+          .AppSectionCharactorsText
+            margin-left 150px
+
+          img
+            left -40px
+            height 370px
 
   &Footer
-    background-color black
-    box-shadow 0 0 0 5px black
+    background-color $base-color
+    box-shadow 0 0 0 5px $base-color
 
     &Body
       box-sizing border-box

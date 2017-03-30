@@ -37,6 +37,7 @@ ul, li
     width 100%
     max-width 1024px
     transform translateX(-50%)
+    overflow hidden
 
     &:before
       z-index 5
@@ -69,9 +70,10 @@ ul, li
       left 0
       right 0
       bottom 0
+      max-width 1024px
       background-size cover
       background-position 50% 50%
-      max-width 1024px
+      background-repeat no-repeat
 
     &Lattice
       z-index 2
@@ -90,62 +92,52 @@ ul, li
       left 0
       right 0
       bottom 0
-      overflow hidden
+      max-width 1024px
       background-size cover
       background-position 50% 50%
-      max-width 1024px
+      background-repeat no-repeat
 
-  &Menu
-    z-index 20
-    position fixed
+  &Overlay
+    z-index 10
+    position absolute
     top 0
     left 50%
     bottom 0
+    background-size cover
+    background-position 50% 50%
     width 100%
-    max-width 1424px
-    font-size 1.2em
-    list-style none
+    max-width 1024px
     transform translateX(-50%)
 
-    &Body
-      padding 20px
+    &Logo
+      box-sizing border-box
+      z-index 6
+      position absolute
+      left 10%
+      top 40px
 
-    img
-      margin-bottom 40px
-      width 240px
+      img
+        width 360px
 
-    .AppMenu
-      padding-left 52px
-      position relative
+    &Copy
+      box-sizing border-box
+      z-index 6
+      position absolute
+      right 10%
+      bottom 40px
+      width 200px
+      font-family '游明朝', YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', 'メイリオ', Meiryo, serif
+      font-weight bold
+      font-size 4em
+      text-shadow 2px 2px 4px #0C2C55
+      display flex
 
-      &:after
-        content ''
-        display block
-        position absolute
-        top 50%
-        left 0
-        width 40px
-        height 1px
-        background-color white
-        transform translateY(-50%)
+      &Body
+        margin-left auto
+        writing-mode vertical-rl
 
-  &Copy
-    box-sizing border-box
-    z-index 10
-    position relative
-    padding-top 20px
-    font-family '游明朝', YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', 'メイリオ', Meiryo, serif
-    font-weight bold
-    font-size 4em
-    text-shadow 2px 2px 4px rgba(#0C2953, 0.96)
-
-    &Body
-      margin 0 auto
-      transform translateX(-240px)
-      writing-mode vertical-rl
-
-    .copy2
-      padding-top 3em
+      .copy2
+        padding-top 3em
 
   &Main
     z-index 15
@@ -153,19 +145,23 @@ ul, li
     position relative
 
     .AppSection
+      margin-bottom 100px
       background-color rgba(black, 0.72)
 
       &Body
+        box-sizing border-box
         margin 0 auto
-        padding 20px 0
+        padding 20px 40px
         width 100%
         max-width 768px
 
-    .AppSectionSpace
-      &:before
-        content ''
-        display block
-        padding-top 100%
+  &Footer
+    background-color black
+    box-shadow 0 0 0 5px black
 
-      &.half:before
-        padding-top 50%
+    &Body
+      box-sizing border-box
+      margin 0 auto
+      padding 20px 40px
+      width 100%
+      max-width 768px

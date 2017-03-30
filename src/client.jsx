@@ -14,43 +14,58 @@ class App extends PureComponent {
   constructor(props, context) {
     super(props, context);
     style._insertCss();
+    // this.state = { route: location.hash.replace('#', '') };
   }
 
   componentDidMount = () => {
-    skrollr.init();
+    this.nodeMask = this.node.querySelector('#AppMask');
+    this.nodeElevator = this.node.querySelector('#AppBackElevator');
+    this.nodePeople = this.node.querySelector('#AppBackPeople');
+
+    window.addEventListener('resize', this.handleResize, false);
+    this.handleResize();
+
+    setTimeout(() => {
+      this.nodeElevator.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 60%');
+      this.nodePeople.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 100%');
+      setTimeout(() => {
+        skrollr.init();
+      });
+    });
+  };
+
+  handleResize = () => {
+    this.nodeMask.style.height = `${window.innerHeight}px`;
+  };
+
+  handleAssignNode = (node) => {
+    this.node = node;
   };
 
   render = () => (
-    <div id='App'>
+    <div id='App' ref={this.handleAssignNode}>
+      <div id='AppMask' />
       <div id='AppBack' style={{ backgroundImage: `url(${Back})` }}>
-        <div id='AppBackElevator' style={{ backgroundImage: `url(${Elevator})` }} data-0='background-position: 50% 40%' data-4000='background-position: 50% 60%' />
+        <div id='AppBackElevator' style={{ backgroundImage: `url(${Elevator})` }} data-0='background-position: 50% 40%' />
         <div id='AppBackLattice' style={{ backgroundImage: `url(${Lattice})` }} />
-        <div id='AppBackPeople' style={{ backgroundImage: `url(${People})` }} data-0='background-position: 50% 0%' data-4000='background-position: 50% 80%' />
+        <div id='AppBackPeople' style={{ backgroundImage: `url(${People})` }} data-0='background-position: 50% 0%' />
       </div>
 
-      <div id='AppMenu'>
-        <ul id='AppMenuBody'>
-          <li><img src={Logo} alt='ストラとスフィア' /></li>
-          <li className='AppMenu'>トップ</li>
-          <li className='AppMenu'>イントロダクション</li>
-          <li className='AppMenu'>ストーリー</li>
-          <li className='AppMenu'>キャラクター</li>
-          <li className='AppMenu'>テーマソング</li>
-        </ul>
-      </div>
-
-      <div id='AppCopy'>
-        <div id='AppCopyBody'>
-          <div className='copy copy1'>宇宙にいちばん</div>
-          <div className='copy copy2'>近い場所へ―</div>
+      <div id='AppOverlay'>
+        <div id='AppOverlayLogo'>
+          <img src={Logo} alt='ストラとスフィア' />
+        </div>
+        <div id='AppOverlayCopy'>
+          <div id='AppOverlayCopyBody'>
+            <div className='copy copy1'>宇宙にいちばん</div>
+            <div className='copy copy2'>近い場所へ―</div>
+          </div>
         </div>
       </div>
 
       <div id='AppMain'>
 
         <div id='AppMainBody'>
-
-          <div className='AppSectionSpace' />
 
           <div className='AppSection AppSectionIntroduction' name='introduction'>
             <div className='AppSectionBody'>
@@ -63,8 +78,6 @@ class App extends PureComponent {
             </div>
           </div>
 
-          <div className='AppSectionSpace half' />
-
           <div className='AppSection AppSectionStory' name='story'>
             <div className='AppSectionBody'>
               <h2>ストーリー</h2>
@@ -76,8 +89,6 @@ class App extends PureComponent {
               <p>そして4月1日、春休みも終わりが近づく頃、彼女の元に運命的な出会いが訪れる――</p>
             </div>
           </div>
-
-          <div className='AppSectionSpace half' />
 
           <div className='AppSection AppSectionCharactor' name='charactor'>
             <div className='AppSectionBody'>
@@ -95,8 +106,6 @@ class App extends PureComponent {
             </div>
           </div>
 
-          <div className='AppSectionSpace half' />
-
           <div className='AppSection AppSectionSong' name='song'>
             <div className='AppSectionBody'>
               <h2>テーマソング</h2>
@@ -106,19 +115,19 @@ class App extends PureComponent {
               <p>作曲：DJ Noriken</p>
               <p>Vocal：YUC'e</p>
 
-              <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/315229539&amp;color=071421&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+              <iframe width='100%' height='166' scrolling='no' frameBorder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/315229539&amp;color=071421&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false' />
+
               <p>2017春M3 A-14ab 『Binzokomegane Girls Union & Sketch UP! Rec.』にて頒布。</p>
               <p>原曲とInstrumentalの他、Remixを数曲収録！詳細は後日公開。</p>
             </div>
           </div>
 
-          <div className='AppSectionSpace half' />
+        </div>
 
-          <div className='AppSection AppSectionFooter'>
-            <div className='AppSectionBody'>
-              <p>2017春M3 A-14ab 『Binzokomegane Girls Union & Sketch UP! Rec.』にて頒布。</p>
-              <p>原曲とInstrumentalの他、Remixを数曲収録！詳細は後日公開。</p>
-            </div>
+        <div id='AppFooter'>
+          <div id='AppFooterBody'>
+            <p>©2017 Binzokomegane Girls Union/Stratosphere</p>
+            <p>※このアニメ化企画はエイプリルフールのネタであり、『スタジオ Bin』および『ストラとスフィア』は架空の存在です。既存の団体、作品とは一切関係ありません。テーマソングのCDは本当に頒布されます。</p>
           </div>
         </div>
       </div>

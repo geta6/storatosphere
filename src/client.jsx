@@ -1,6 +1,7 @@
 // import 'react-fastclick';
 import classNames from 'classnames';
 import skrollr from 'skrollr';
+import UAParser from 'ua-parser-js';
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -39,7 +40,13 @@ class App extends PureComponent {
       this.nodeElevator.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 60%');
       this.nodePeople.setAttribute(`data-${document.body.scrollHeight - window.innerHeight}`, 'background-position: 50% 100%');
       setTimeout(() => {
-        skrollr.init();
+        const ua = new UAParser();
+        if (!['mobile', 'tablet'].includes(ua.getResult().device.type)) {
+          this.setState({ mobile: false });
+          skrollr.init();
+        } else {
+          this.setState({ mobile: true });
+        }
         this.setState({ loaded: true });
       });
     });
@@ -54,7 +61,7 @@ class App extends PureComponent {
   };
 
   render = () => (
-    <div id='App' ref={this.handleAssignNode}>
+    <div id='App' ref={this.handleAssignNode} className={classNames({ mobile: this.state.mobile })}>
       <div id='AppLoad' className={classNames({ visible: !this.state.loaded })}>
         <div id='AppLoadBar'>
           <div id='AppLoadBarBody' style={{ width: `${(this.state.count / this.image.length) * 100}%` }} />

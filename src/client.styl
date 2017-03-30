@@ -146,6 +146,9 @@ ul, li
       img
         width 360px
 
+        .mobile &
+          width 240px
+
     &Copy
       box-sizing border-box
       z-index 6
@@ -159,6 +162,10 @@ ul, li
       color lighten($base-color, 12%)
       text-shadow 0px 0px 4px white, 0px 0px 4px white
       display flex
+
+      .mobile &
+        font-size 3em
+        right 5%
 
       &Body
         margin-left auto
@@ -204,6 +211,12 @@ ul, li
         display flex
         justify-content space-between
         align-items top
+
+        .mobile &
+          display block
+
+          .AppSectionCharactors + .AppSectionCharactors
+            margin-top 60px
 
       .AppSectionCharactors
         flex 1

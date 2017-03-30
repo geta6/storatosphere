@@ -151,13 +151,13 @@ class App extends PureComponent {
             <div className='AppSectionBody AppSectionBodySong'>
               <h2>テーマソング</h2>
 
-              <h3>スターゲイザー</h3>
-              <p>作詞：stereoberry<br />作編曲：DJ Noriken<br />Vocal：YUC'e</p>
+              <h3>スターゲイザー feat. YUC'e</h3>
+              <p>作編曲：DJ Noriken<br />作詞：stereoberry<br />Vocal：YUC'e</p>
 
               <iframe width='100%' height='166' scrolling='no' frameBorder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/315229539&amp;color=071421&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false' />
 
               <p>2017春M3 A-14ab 『Binzokomegane Girls Union & Sketch UP! Rec.』にて頒布</p>
-              <p>原曲とInstrumentalの他、Remixを数曲収録！詳細は後日公開</p>
+              <p>原曲とInstrumentalの他、Remixを数曲収録！詳細は後日公開。</p>
             </div>
           </div>
 

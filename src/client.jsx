@@ -9,6 +9,8 @@ import Back from './image/bg.png';
 import Elevator from './image/elevator.png';
 import People from './image/people.png';
 import Lattice from './image/lattice.png';
+import Stora from './image/stora.png';
+import Sphere from './image/sphere.png';
 
 class App extends PureComponent {
   constructor(props, context) {
@@ -93,16 +95,22 @@ class App extends PureComponent {
           <div className='AppSection AppSectionCharactor' name='charactor'>
             <div className='AppSectionBody'>
               <h2>キャラクター</h2>
-              <h3>ストラ（CV:？？？）</h3>
-              <p>巨大軌道エレベーター第3中継地点『ストラトスフィア』が完成した年に生まれた14歳の女の子。</p>
-              <p>両親は宇宙開発に従事していて、その流れで自身も宇宙への興味を持つ。</p>
-              <p>活発な性格で、興味を持ったものにはどんどんのめり込む。</p>
-              <p>それゆえ学校では浮いた存在だが友だちは多い。自分の知識をひけらかしてドヤ顔しがち。</p>
-              <h3>スフィア（CV:？？？）</h3>
-              <p>4月1日にストラが『ストラトスフィア』で出会う謎の少女。</p>
-              <p>ストラに負けず劣らずの宇宙好きで、出会ったばかりとのストラともすぐに仲良くなる。</p>
-              <p>つかみどころがなく、どこか消え入りそうな雰囲気を持つ。</p>
-              <p>その正体は…………？</p>
+              <div className='AppSectionCharactors'>
+                <h3>ストラ（CV:？？？）</h3>
+                <img src={Stora} alt='ストラ' />
+                <p>巨大軌道エレベーター第3中継地点『ストラトスフィア』が完成した年に生まれた14歳の女の子。</p>
+                <p>両親は宇宙開発に従事していて、その流れで自身も宇宙への興味を持つ。</p>
+                <p>活発な性格で、興味を持ったものにはどんどんのめり込む。</p>
+                <p>それゆえ学校では浮いた存在だが友だちは多い。自分の知識をひけらかしてドヤ顔しがち。</p>
+              </div>
+              <div className='AppSectionCharactors'>
+                <h3>スフィア（CV:？？？）</h3>
+                <img src={Sphere} alt='スフィア' />
+                <p>4月1日にストラが『ストラトスフィア』で出会う謎の少女。</p>
+                <p>ストラに負けず劣らずの宇宙好きで、出会ったばかりとのストラともすぐに仲良くなる。</p>
+                <p>つかみどころがなく、どこか消え入りそうな雰囲気を持つ。</p>
+                <p>その正体は…………？</p>
+              </div>
             </div>
           </div>
 

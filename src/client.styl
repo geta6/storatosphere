@@ -1,6 +1,11 @@
 global-reset()
 
+$easing-quick = cubic-bezier(.215, .61, .355, 1)
+$easing-kickback = cubic-bezier(0.175, 0.885, 0.32, 1.275)
+
 html, body
+  margin 0
+  padding 0
   height 100%
   line-height 1.5
   font-size 12px
@@ -11,12 +16,97 @@ html, body
   background-color black
   -webkit-tap-highlight-color transparent
 
+ul, li
+  margin 0
+  padding 0
+  list-style none
+
 #App
+  min-height 100%
+
   &Back
     position fixed
     top 0
     left 0
     right 0
     bottom 0
-    background-size cover
-    background-position 50% 50%
+
+    &Ground
+      z-index 0
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
+      background-size cover
+      background-position 50% 50%
+
+    &Elevator
+      z-index 1
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
+      background-size cover
+      background-position 50% 50%
+
+    &Lattice
+      z-index 2
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
+      background-repeat repeat
+
+    &People
+      z-index 3
+      position absolute
+      top 0
+      left 0
+      right 0
+      bottom 0
+      overflow hidden
+      background-size cover
+      background-position 50% 50%
+
+  &Main
+    height 5000px
+
+  &Menu
+    position fixed
+    top 0
+    left 0
+    bottom 0
+    padding 20px
+    width 200px
+    font-size 1.2em
+    list-style none
+
+    &:before
+      z-index -1
+      content ''
+      display block
+      position absolute
+      top 0
+      left 0
+      bottom 0
+      width 0
+      height 100%
+      box-shadow 0 0 80px 80px black
+
+    .AppMenu
+      padding-left 52px
+      position relative
+
+      &:after
+        content ''
+        display block
+        position absolute
+        top 50%
+        left 0
+        width 40px
+        height 1px
+        background-color white
+        transform translateY(-50%)

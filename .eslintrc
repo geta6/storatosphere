@@ -1,38 +1,24 @@
-{
-  "parser": "babel-eslint",
-  "extends": "airbnb",
-  "env": {
-    "jest": true,
-    "jasmine": true,
-    "browser": true
-  },
-  "globals": {
-    "$Shape": true
-  },
-  "rules": {
-    "global-require": 0,
-    "jsx-quotes": [2, "prefer-single"],
-    "max-len": 0,
-    "yoda": ["error", "never", { "exceptRange": true }],
-    "arrow-parens": [2, "always"],
-    "comma-dangle": ["error", { "arrays": "always-multiline", "objects": "always-multiline", "imports": "always-multiline", "exports": "always-multiline", "functions": "ignore" }],
-    "newline-per-chained-call": 0,
-    "no-await-in-loop": 0,
-    "no-unused-expressions": 0,
-    "no-underscore-dangle": 0,
-    "no-warning-comments": [1, {"terms": ["todo", "fixme"], "location": "anywhere"}],
-    "no-plusplus": 0,
-    "no-bitwise": 0,
-    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
-    "jsx-a11y/no-static-element-interactions": 0,
-    "react/prefer-stateless-function": 0,
-    "react/prop-types": 2,
-    "react/forbid-prop-types": [2, { "forbid": ["any"] }],
-    "react/sort-comp": [2, { "order": ["static-methods", "type-annotations", "lifecycle", "/^is.+$/", "/^get.+$/", "/^set.+$/", "/^handle.+$/", "everything-else", "render"] }],
-    "import/extensions": 0,
-    "import/prefer-default-export": 0,
-    "import/newline-after-import": 0,
-    "import/no-unresolved": [2, { "commonjs": true, "ignore": ["AppTestUtil"] }],
-    "import/no-extraneous-dependencies": 0
-  }
-}
+---
+  parser: babel-eslint
+  extends:
+    - eslint:recommended
+    - plugin:react/recommended
+  plugins:
+    - react
+    - import
+    - private-props
+  env:
+    es6: true
+    node: true
+    browser: true
+  rules:
+    global-require: 0
+    semi: 2
+    jsx-quotes: [2, prefer-single]
+    comma-dangle: [2, { arrays: always-multiline, objects: always-multiline, imports: always-multiline, exports: always-multiline, functions: ignore }]
+    import/extensions: [0, ".js", ".jsx", ".ts", ".tsx"]
+    import/prefer-default-export: 0
+    import/newline-after-import: 0
+    import/no-unresolved: [2, { "commonjs": true, "ignore": ["AppTestUtil"] }]
+    import/no-extraneous-dependencies: 0
+    private-props/no-unused-or-undeclared: [2, { "privateMatchers": ["^_", "^handle.+", "^render.+"] }]

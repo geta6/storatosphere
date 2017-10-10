@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import pkg from './package.json';
 
 export default () => {
   const DEBUG = process.env.NODE_ENV !== 'production';
@@ -12,14 +13,14 @@ export default () => {
     devtool: 'source-map',
 
     entry: {
-      client: ['babel-polyfill', './src/client.jsx'],
+      client: ['babel-polyfill', './src/index.js'],
     },
 
     output: {
       path: path.join(__dirname, 'dist'),
       filename: DEBUG ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
       chunkFilename: DEBUG ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
-      publicPath: '/anime/',
+      publicPath: '/',
       sourcePrefix: '  ',
     },
 
@@ -58,14 +59,17 @@ export default () => {
               options: {
                 cacheDirectory: path.join(__dirname, 'tmp', 'babel'),
                 babelrc: false,
-                presets: [['env', { targets: { browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'] } }], 'react', ...(DEBUG ? [] : ['react-optimize'])],
+                presets: [
+                  ['env', { targets: { browsers: pkg.browserslist, forceAllTransforms: true }, modules: false, useBuiltIns: false, debug: false }],
+                  'react',
+                  ...(DEBUG ? [] : ['react-optimize']),
+                ],
                 plugins: [
                   'transform-class-properties',
                   'transform-object-rest-spread',
-                  ...!DEBUG ? [] : [
-                    'transform-react-jsx-source',
-                    'transform-react-jsx-self',
-                  ],
+                  'transform-decorators-legacy',
+                  ...(DEBUG ? ['transform-react-jsx-source'] : []),
+                  ...(DEBUG ? ['transform-react-jsx-self'] : []),
                 ],
               },
             },
@@ -96,11 +100,21 @@ export default () => {
 
     plugins: [
       new HtmlWebpackPlugin({ template: 'src/index.pug' }),
-      ...DEBUG ? [] : [
-        new webpack.optimize.UglifyJsPlugin({ sourceMap: true, minimize: true, compress: { screw_ie8: true, warnings: false, unused: true, dead_code: true }, mangle: { screw_ie8: true }, output: { comments: false, screw_ie8: true } }),
-        new webpack.optimize.AggressiveMergingPlugin(),
-      ],
+      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', minChunks: (module) => /node_modules/.test(module.resource) }),
+      ...DEBUG ? [] : [new webpack.optimize.ModuleConcatenationPlugin()],
+      ...DEBUG ? [] : [new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
+        compress: { screw_ie8: true, warnings: false, unused: true, dead_code: true },
+        mangle: { screw_ie8: true },
+        output: { comments: false, screw_ie8: true },
+      })],
     ],
+
+    node: {
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+    },
 
     devServer: {
       host: '0.0.0.0',

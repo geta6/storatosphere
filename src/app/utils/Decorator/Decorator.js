@@ -1,18 +1,21 @@
-import noop from 'lodash/noop';
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-export const withStyle = ({ style }) => (ComposedComponent) => (
+export const withStyle = (...styles) => (ComposedComponent) => (
   class WithStyle extends PureComponent {
     static displayName = `withStyle(${ComposedComponent.displayName})`;
 
+    static contextTypes = {
+      insertCss: PropTypes.func.isRequired,
+    };
+
     constructor(props, context) {
       super(props, context);
-      this.removeCss = style._insertCss();
+      this.removeCss = styles.map((style) => this.context.insertCss(style));
     }
 
     componentWillUnmount = () => {
-      setTimeout(this.removeCss, 0);
+      setTimeout(() => this.removeCss.forEach((remove) => remove()), 0);
     };
 
     render = () => (

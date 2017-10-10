@@ -1,10 +1,18 @@
 import 'react-fastclick';
 import classNames from 'classnames';
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
+import { provideContext, connectToStores } from 'fluxible-addons-react';
+import { handleHistory } from 'fluxible-router';
 import { withStyle } from '../../utils/Decorator';
 
-@withStyle({ style: require('./App.styl') })
+@provideContext({ insertCss: PropTypes.func.isRequired })
+@handleHistory()
+@withStyle(require('./App.styl'))
+@connectToStores(['RouteStore'], (context) => ({
+  route: context.getStore('RouteStore').getRoute(),
+  error: context.getStore('RouteStore').getError(),
+}))
 export default class App extends PureComponent {
   constructor(props, context) {
     super(props, context);

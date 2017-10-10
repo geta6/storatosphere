@@ -13,7 +13,7 @@ export default () => {
     devtool: 'source-map',
 
     entry: {
-      client: ['babel-polyfill', './src/index.js'],
+      client: ['babel-polyfill', './src/client.js'],
     },
 
     output: {

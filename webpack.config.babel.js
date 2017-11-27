@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import pkg from './package.json';
 
 export default () => {
@@ -61,15 +62,11 @@ export default () => {
                 babelrc: false,
                 presets: [
                   ['env', { targets: { browsers: pkg.browserslist, forceAllTransforms: true }, modules: false, useBuiltIns: false, debug: false }],
-                  'react',
-                  ...(DEBUG ? [] : ['react-optimize']),
+                  ['react', { pragma: 'h', development: DEBUG }],
                 ],
                 plugins: [
                   'transform-class-properties',
                   'transform-object-rest-spread',
-                  'transform-decorators-legacy',
-                  ...(DEBUG ? ['transform-react-jsx-source'] : []),
-                  ...(DEBUG ? ['transform-react-jsx-self'] : []),
                 ],
               },
             },
@@ -77,11 +74,16 @@ export default () => {
         }, {
           test: /\.styl$/,
           include: [path.join(__dirname, 'src')],
-          use: [
-            { loader: 'isomorphic-style-loader' },
-            { loader: 'css-loader', options: { sourceMap: false, compress: true } },
-            { loader: 'stylus-loader' },
-          ],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [{
+              loader: 'css-loader',
+              options: { sourceMap: false, minimize: !DEBUG },
+            }, {
+              loader: 'stylus-loader',
+              options: { import: ['~nib/index'] },
+            }],
+          }),
         }, {
           test: /\.pug$/,
           include: [path.join(__dirname, 'src')],
@@ -89,17 +91,19 @@ export default () => {
             { loader: 'pug-loader' },
           ],
         }, {
-          test: /\.(png|jpg|gif)$/,
+          test: /\.(png|jpe?g|gif|svg)$/,
           include: [path.join(__dirname, 'src')],
-          use: [
-            { loader: 'url-loader', options: { name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]', limit: 1000 } },
-          ],
+          use: [{
+            loader: 'url-loader',
+            options: { name: DEBUG ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]', limit: 1000 },
+          }],
         },
       ],
     },
 
     plugins: [
       new HtmlWebpackPlugin({ template: 'src/index.pug' }),
+      new ExtractTextPlugin(DEBUG ? '[name].css' : '[name]-[hash].css'),
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', minChunks: (module) => /node_modules/.test(module.resource) }),
       ...DEBUG ? [] : [new webpack.optimize.ModuleConcatenationPlugin()],
       ...DEBUG ? [] : [new webpack.optimize.UglifyJsPlugin({
@@ -109,6 +113,10 @@ export default () => {
         output: { comments: false, screw_ie8: true },
       })],
     ],
+
+    watchOptions: {
+			ignored: /node_modules/,
+		},
 
     node: {
       fs: 'empty',

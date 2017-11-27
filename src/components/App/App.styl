@@ -1,0 +1,27 @@
+#App
+  font-family '游ゴシック', YuGothic, 'ヒラギノゴシック ProN W3', 'Hiragino Gothic ProN', 'メイリオ', Meiryo, sans-serif
+  font-smoothing antialiased
+  -webkit-font-smoothing antialiased
+  -webkit-tap-highlight-color transparent
+
+  .card
+    &.enabled .card-image-bg
+      background-color #5BCDB3
+
+  .card-image-bg
+    background-color #CCCCCC
+
+    .image
+      position relative
+
+      img
+        position absolute
+        top 50%
+        left 50%
+        width 120px
+        height @width
+        margin-top @width * -0.5
+        margin-left @height * -0.5
+        border-radius 50%
+        box-shadow 0 0 0 1px black
+        background-color black

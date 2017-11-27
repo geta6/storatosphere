@@ -26,48 +26,53 @@
           }
         }
       ],
-      "react"
+      [
+        "react",
+        {
+          "pragma": "h"
+        }
+      ]
     ],
     "plugins": [
       "transform-object-rest-spread"
     ]
   },
   "dependencies": {
-    "babel-eslint": "8.0.1",
+    "axios": "0.17.1",
+    "babel-core": "7.0.0-beta.3",
+    "babel-polyfill": "7.0.0-beta.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "8.0.2",
     "babel-loader": "7.1.2",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-plugin-transform-decorators-legacy": "1.3.4",
-    "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.6.0",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-react-optimize": "1.0.1",
-    "babel-register": "6.26.0",
+    "babel-node": "7.0.0-beta.3",
+    "babel-plugin-transform-class-properties": "7.0.0-beta.3",
+    "babel-plugin-transform-object-rest-spread": "7.0.0-beta.3",
+    "babel-preset-env": "7.0.0-beta.3",
+    "babel-preset-react": "7.0.0-beta.3",
     "classnames": "2.2.5",
     "css-loader": "0.28.7",
-    "eslint": "4.8.0",
-    "eslint-plugin-import": "2.7.0",
+    "domready": "1.0.8",
+    "eslint": "4.12.0",
+    "eslint-plugin-import": "2.8.0",
     "eslint-plugin-private-props": "0.3.0",
-    "eslint-plugin-react": "7.4.0",
+    "eslint-plugin-react": "7.5.1",
+    "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
-    "fluxible": "1.4.0",
-    "fluxible-addons-react": "0.2.14",
-    "fluxible-router": "1.4.0",
     "html-webpack-plugin": "2.30.1",
     "immutable": "3.8.2",
-    "isomorphic-style-loader": "4.0.0",
     "jquery": "3.2.1",
+    "moment": "2.19.2",
     "nib": "1.1.2",
+    "preact": "8.2.6",
     "pug": "2.0.0-rc.4",
     "pug-loader": "2.3.0",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
-    "react-fastclick": "3.0.2",
+    "style-loader": "^0.19.0",
     "stylus": "0.54.5",
     "stylus-loader": "3.0.1",
     "url-loader": "0.6.2",
-    "webpack": "3.6.0",
-    "webpack-dev-server": "2.9.1",
-    "webpack-hot-middleware": "2.19.1"
+    "webpack": "3.8.1",
+    "webpack-dev-server": "2.9.4",
+    "webpack-hot-middleware": "2.21.0"
   }
 }
